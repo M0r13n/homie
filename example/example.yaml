@@ -1,0 +1,36 @@
+title: 'Services Dashboard'
+categories:
+  - title: "Entwicklungswerkzeuge"
+    hosts:
+      - name: "GitLab"
+        host: "www.gitlab.com"
+        note: "Source Control"
+        icon: "gitlab.svg"
+
+      - name: "Jenkins"
+        host: "www.jenkins.com"
+        note: "Build Pipelines"
+        icon: "jenkins.svg"
+        badge: "legacy"
+
+      - name: "Issuetracker"
+        host: "www.pro-file.com"
+        note: "Pro.File Webreport"
+        icon: "profile.png"
+
+  - title: "Verwaltungstools"
+    hosts:
+      - name: "vSphere Cluster"
+        host: "www.vmware.com"
+        note: "vSphere Management console"
+        icon: "cloud.svg"
+
+      - name: "Helpdesk"
+        host: "www.help.com"
+        note: "Internal helpdesk"
+        icon: "ticket.svg"
+
+      - name: "Inranet"
+        host: "http://intranet"
+        note: "Intranet"
+        icon: "news.svg"
