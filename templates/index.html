@@ -1,0 +1,50 @@
+<!-- MVP.css quickstart template: https://github.com/andybrewer/mvp/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="static/mvp.css">
+    <meta charset="utf-8">
+    <meta name="description" content="My description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homie - {{ dashboard.title }}</title>
+</head>
+
+<body>
+<header>
+    <h1> {{ dashboard.title }} </h1>
+    <hr>
+</header>
+<main>
+    {% for category in dashboard.categories %}
+        <section id="{{ category.title }}" aria-label="{{ category.title }}">
+            <header>
+                <h2>{{ category.title }}</h2>
+            </header>
+
+            {% for host in category.hosts %}
+                <aside>
+                    <span style="float:right">
+                        <img alt="{{ host.name }}-icon" src="static/icons/{{ host.icon }}" height="80">
+                    </span>
+
+                    <h3> {{ host.name }} </h3>
+                    <p> {{ host.note }} {% if host.badge %} <sup>{{ host.badge }}</sup> {% endif %} </p>
+
+                </aside>
+            {% endfor %}
+        </section>
+    {% endfor %}
+
+
+</main>
+<footer>
+    <hr>
+    <p>
+        <small>Contact info</small>
+    </p>
+</footer>
+</body>
+
+</html>
