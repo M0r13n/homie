@@ -1,6 +1,6 @@
 title: 'Services Dashboard'
 categories:
-  - title: "Entwicklungswerkzeuge"
+  - title: "Dev tools"
     hosts:
       - name: "GitLab"
         host: "www.gitlab.com"
@@ -13,12 +13,13 @@ categories:
         icon: "jenkins.svg"
         badge: "legacy"
 
-      - name: "Issuetracker"
-        host: "www.pro-file.com"
-        note: "Pro.File Webreport"
-        icon: "profile.png"
+      - name: "Travis CI"
+        host: "https://travis-ci.org/"
+        note: "Test and Deploy via Travis."
+        icon: "travis-ci.svg"
 
-  - title: "Verwaltungstools"
+  # Icons taken from https://tabler-icons.io/
+  - title: "Misc"
     hosts:
       - name: "vSphere Cluster"
         host: "www.vmware.com"
@@ -30,7 +31,7 @@ categories:
         note: "Internal helpdesk"
         icon: "ticket.svg"
 
-      - name: "Inranet"
-        host: "http://intranet"
+      - name: "Intranet"
+        host: "intranet"
         note: "Intranet"
         icon: "news.svg"

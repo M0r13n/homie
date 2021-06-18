@@ -2,11 +2,13 @@ import errno
 import os
 import shutil
 from pathlib import Path
-from typing import Union
+from typing import Union, Optional
 
 from jinja2 import FileSystemLoader, Environment
 
 from renderer.model import Dashboard
+
+FILE_DIR = Path(__file__).parent.absolute()
 
 
 class Site(object):
@@ -21,17 +23,23 @@ class Site(object):
 
     def __init__(
             self,
-            template_dir: Union[str, Path] = "templates",
-            static_dir: Union[str, Path] = "static",
+            input_dir: Path,
             build_dir: Union[str, Path] = "build",
+            template_dir: Optional[Path] = None,
+            static_dir: Optional[Path] = None,
             encoding: str = "utf-8"
     ):
+        # Where to look for user files
+        self.input_dir: Path = input_dir
+        if not self.input_dir.is_dir():
+            raise NotADirectoryError(self.input_dir)
+
         # The template and static directory are required to exist
-        self.template_dir: Union[str, Path] = Path(template_dir)
+        self.template_dir: Path = self._parse_relative_path(template_dir or "templates")
         if not self.template_dir.is_dir():
             raise NotADirectoryError(self.template_dir)
 
-        self.static_dir: Union[str, Path] = Path(static_dir)
+        self.static_dir: Path = self._parse_relative_path(static_dir or "static")
         if not self.static_dir.is_dir():
             raise NotADirectoryError(self.static_dir)
 
@@ -40,6 +48,16 @@ class Site(object):
         self.encoding: str = encoding
 
         self.environment: Environment = self._make_environment()
+
+    @staticmethod
+    def _parse_relative_path(path: Union[str, Path]) -> Path:
+        path = Path(path)
+        if path.is_absolute():
+            # Nothing to do for absolute paths
+            return path
+
+        # Relative path to current files folder
+        return FILE_DIR.joinpath(path)
 
     def _make_environment(self) -> Environment:
         """
@@ -60,6 +78,7 @@ class Site(object):
         @param path: path relative to the build folder
         @return: Path object, that represents a full build path
         """
+        path = Path(path)
         return self.build_dir.joinpath(path)
 
     def clean_build_dir(self) -> None:
@@ -78,13 +97,36 @@ class Site(object):
         Copy the entire static build directory into the build folder.
         @return:
         """
+        target_dir = self.build_path("static")
         try:
             # Recursive copy
-            shutil.copytree(self.static_dir, self.build_path(self.static_dir))
+            shutil.copytree(self.static_dir, target_dir, )
         except OSError as exc:
             if exc.errno == errno.ENOTDIR:
                 # This may happen, so fall back to copy
-                shutil.copy("static", "build/static")
+                shutil.copy(self.static_dir, target_dir)
+                return
+            raise
+
+    def copy_icon_folder(self) -> None:
+        """
+        Copy the entire icon folder into the build folder
+        @return:
+        """
+        target_dir = self.build_path("static/icons")
+        icon_dir = self.input_dir.joinpath("icons")
+
+        if not icon_dir.is_dir():
+            print("Warning: No icons dir found!")
+            return
+
+        try:
+            # Recursive copy
+            shutil.copytree(icon_dir, target_dir, )
+        except OSError as exc:
+            if exc.errno == errno.ENOTDIR:
+                # This may happen, so fall back to copy
+                shutil.copy(icon_dir, target_dir)
                 return
             raise
 
@@ -114,3 +156,4 @@ class Site(object):
         self.clean_build_dir()
         self.render(dashboard)
         self.copy_static_folder()
+        self.copy_icon_folder()
