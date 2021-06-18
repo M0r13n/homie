@@ -43,7 +43,7 @@ class Site(object):
         if not self.static_dir.is_dir():
             raise NotADirectoryError(self.static_dir)
 
-        self.build_dir: Union[str, Path] = Path(build_dir)
+        self.build_dir: Path = Path(build_dir)
 
         self.encoding: str = encoding
 
@@ -79,7 +79,7 @@ class Site(object):
         @return: Path object, that represents a full build path
         """
         path = Path(path)
-        return self.build_dir.joinpath(path)
+        return self.build_dir.joinpath(Path(path))
 
     def clean_build_dir(self) -> None:
         """

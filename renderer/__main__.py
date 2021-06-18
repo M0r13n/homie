@@ -30,7 +30,8 @@ def serve(build_dir: Path, host: str = "127.0.0.1", port: int = 5000) -> int:
         except (KeyboardInterrupt, SystemExit):
             httpd.server_close()
             httpd.socket.close()
-            return 0
+
+    return 0
 
 
 def main() -> int:

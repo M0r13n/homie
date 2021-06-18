@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Union
 
-import related
+import related  # type: ignore
 
 
 @related.immutable

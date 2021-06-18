@@ -1,0 +1,8 @@
+# Needed to run the software
+Jinja2
+related
+
+# Development requirements
+flake8
+mypy
+twine
