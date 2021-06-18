@@ -13,6 +13,7 @@ with open(os.path.join('renderer', '__init__.py')) as f:
 
 setuptools.setup(
     name="homie",
+    setup_requires=['setuptools_scm'],
     version=VERSION,
     author="Leon Morten Richter",
     author_email="github@leonmortenrichter.de",
@@ -22,6 +23,7 @@ setuptools.setup(
     url="https://github.com/M0r13n/pyais",
     license="MIT",
     packages=setuptools.find_packages(),
+    include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

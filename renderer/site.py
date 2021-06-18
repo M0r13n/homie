@@ -45,6 +45,7 @@ class Site(object):
 
         self.build_dir: Path = Path(build_dir)
 
+        print(build_dir)
         self.encoding: str = encoding
 
         self.environment: Environment = self._make_environment()

@@ -1,5 +1,4 @@
 venv
 build
-example/icons/*
 *.pyc
 .idea
