@@ -29,7 +29,7 @@
                         <img alt="{{ host.name }}-icon" src="static/icons/{{ host.icon }}" height="80">
                     </span>
 
-                    <h3><a href="https://{{ host.host }}" style="color:inherit" rel="noopener noreferrer"
+                    <h3><a href="{{ host.href }}" style="color:inherit" rel="noopener noreferrer"
                            target="_blank">{{ host.name }}</a></h3>
                     <p> {{ host.note }} {% if host.badge %} <sup>{{ host.badge }}</sup> {% endif %} </p>
 

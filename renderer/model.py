@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import Union
+from urllib.parse import urlparse, urlunparse
 
 import related  # type: ignore
 
@@ -11,6 +12,15 @@ class Host(object):
     note = related.StringField(required=False)
     icon = related.StringField(required=False)
     badge = related.StringField(required=False)
+
+    @property
+    def href(self) -> str:
+        scheme, netloc, path, params, query, fragment = urlparse(self.host)
+
+        if not scheme:
+            scheme = "https"
+
+        return urlunparse([scheme, netloc, path, params, query, fragment])
 
 
 @related.immutable
